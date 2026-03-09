@@ -14,6 +14,10 @@ This document provides LLM agents with essential guidelines for contributing to 
 
 ## Core Guidelines
 
+### ⚠️ Important: Next.js `middleware.ts` deprecation
+
+Do NOT use `middleware.ts` in this project. The Next.js version used here deprecates `middleware.ts` and it can cause unexpected behavior. Instead, use the existing `proxy.ts` file at the repository root for proxying or middleware-like request handling.
+
 ### ⚠️ CRITICAL: Read Documentation First
 
 **BEFORE GENERATING ANY CODE, YOU MUST READ THE RELEVANT INSTRUCTION FILES IN THE `/docs` DIRECTORY.**
@@ -21,10 +25,12 @@ This document provides LLM agents with essential guidelines for contributing to 
 This is non-negotiable. Every code change must comply with the standards defined in these files. Failure to read and follow these guidelines will result in code that violates project standards.
 
 **Required Documentation Files:**
+
 - [Authentication Guide](docs/auth-guide.md) - **ALWAYS read before implementing any auth features** (Clerk integration, protected routes, sign-in/sign-up flows)
 - [shadcn/ui Component Guide](docs/shadcn-ui-guide.md) - **ALWAYS read before creating any UI components** (UI component standards, styling, and composition patterns)
 
 **Process for Every Task:**
+
 1. Identify which documentation file(s) apply to your task
 2. Read the entire relevant documentation file(s)
 3. Understand all requirements and standards

@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
-import { Button } from "@/components/ui/button";
+import { ClerkProvider } from "@clerk/nextjs";
+import SignInRedirectClient from "@/components/SignInRedirectClient";
+import HeaderAuth from "@/components/HeaderAuth";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,30 +25,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { userId } = await auth();
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
       <html lang="en" className="dark">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground dark`}
         >
           <header className="flex justify-between items-center p-4 border-b bg-card text-card-foreground">
             <h1 className="text-2xl font-bold">URL Shortener</h1>
-            <div className="flex gap-4">
-              {!userId ? (
-                <>
-                  <SignInButton mode="modal">
-                    <Button variant="outline">Sign In</Button>
-                  </SignInButton>
-                  <SignUpButton mode="modal">
-                    <Button>Sign Up</Button>
-                  </SignUpButton>
-                </>
-              ) : (
-                <UserButton />
-              )}
-            </div>
+            <HeaderAuth />
           </header>
+          <SignInRedirectClient />
           {children}
         </body>
       </html>
